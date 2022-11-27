@@ -1,0 +1,162 @@
+body {
+    background-color: #fff;
+}
+
+.header-nav {
+    width: 100%;
+    height: 50px;
+
+    background-color: beige;
+    /* display: flex;
+    justify-content: space-between; */
+
+}
+
+.user {
+    padding-right: 20px;
+    padding-top: 20px;
+}
+
+.content {
+    width: 100%;
+    height: 600px;
+    margin-top: 0px;
+    background-color: black;
+    display: flex;
+}
+
+.conten-left {
+    width: 20%;
+    height: 600px;
+    background-color: azure;
+
+}
+
+.conten-right {
+    width: 80%;
+    height: 600px;
+    background-color: #fff;
+}
+
+.search {
+    display: flex;
+    margin-top: 10px;
+    width: 100%;
+    height: 30px;
+
+}
+
+.view-content {
+    width: 100%;
+    height: 30px;
+    margin-top: 10px;
+
+}
+
+.form-content {
+    width: 100%;
+    height: 30px;
+    margin-top: 10px;
+}
+
+.title {
+    margin-left: 20px;
+}
+
+.content-bt {
+    width: 90%;
+    height: 550px;
+    margin-left: 20px;
+
+    border: 1px solid black;
+}
+
+.title-fr {
+    width: 100%;
+    height: 50px;
+    display: flex;
+
+    background-color: azure;
+
+}
+
+.title-fr h3 {
+
+    margin-left: 20px;
+}
+
+#cfe-title1 {
+    width: 70%;
+    height: 50px;
+}
+
+.cfe-title {
+
+    margin-left: 30px;
+
+}
+
+.cfe-Brief {
+    margin-left: 30px;
+}
+
+.cfe-content {
+    margin-left: 30px;
+}
+
+.bt-submit {
+    margin-left: 30px;
+}
+
+.header-nav h4 {
+    margin-left: 10px;
+}
+
+.subnav {
+    display: none;
+    position: absolute;
+
+    background-color: #ccc;
+    width: 120px;
+    height: 76px;
+
+
+}
+
+#nav li {
+    display: inline-block;
+    position: relative;
+
+}
+
+#nav li a {
+    text-decoration: none;
+
+}
+
+#nav, .subnav {
+    list-style-type: none;
+}
+
+#nav li:hover .subnav {
+    display: block;
+}
+
+#nav {
+    margin-right: 120px;
+    margin-top: 1px;
+}
+
+.conten-left .search-container button {
+    float: right;
+    /* padding: 6px 10px; */
+    margin-right: 104px;
+    background: #ddd;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+}
+
+.conten-left .search-container button:hover {
+    background: #ccc;
+}

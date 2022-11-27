@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--  <link rel="stylesheet"  href="/./node_modules/fullpage.js/dist/fullpage.min.css">-->
+    <link rel="icon" th:href="@{/image/logo2-removebg-preview.png}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Hi+Melody&family=Patrick+Hand&display=swap"
+          rel="stylesheet">
+    <title>YS ChildCare</title>
+    <link rel="stylesheet" th:href="@{/css/style_2.css}">
+</head>
+
+<header>
+    <li id="myMenu" class="left-side">
+        <a href="#welcome" class="header-logo">
+            <img th:src="@{/image/logo.png}" alt="">
+        </a>
+        <a href="#about-us" class="navigation-links">About us</a>
+        <a href="#section-2" class="navigation-links">Where we are</a>
+        <a href="#section-3" class="navigation-links">Vision & Mission</a>
+        <a href="#section-4" class="navigation-links">What we do</a>
+        <a href="#feedback" class="navigation-links">Parents's feedback</a>
+    </li>
+    <div class="right-side">
+        <a href="/home/register" class="login-btns btn-highlight">Register</a>
+        <a href="/home/login" class="login-btns">Login</a>
+    </div>
+</header>
+
+<body>
+<div id="fullpage">
+    <div class="section section-custom" id="welcome">
+        <div class="title-container">
+            <h1>We embrace<br/><span class="highlight">the magic</span> of childhood</h1>
+            <p style="color: #dad4e3">We aim to care for your child <br/>as you would at home in a safe, fun and
+                happy way...</p>
+        </div>
+    </div>
+
+    <div class="section section-custom" id="about-us">
+        <h2>A little bit <span class="highlight">about us</span></h2>
+
+        <div class="sub-text">
+            <p>After more than <span class="highlight">10 years</span> of pioneering the application and
+                spreading
+                of Montessori education methods in Vietnam, YS ChildCare is highly appreciated by parents and
+                <span class="highlight">Montessori experts</span> in applying the standard Montessori
+                educational
+                method, bringing to the environment. Personalized learning to unleash the inherent potential in
+                each
+                child.
+            </p>
+            <p>With an understanding of the psychophysiological characteristics of children in the period <span
+                    class="highlight">0-6 years
+                        old</span>, combined with subtle observations and daily notes, YS ChildCare safety and
+                health
+                teachers develop a personal development <span class="highlight">roadmap for each child</span> to
+                support each child. Support children in the most timely manner as well as provide dedicated
+                care,
+                taking care of each child's meal and sleep.</p>
+        </div>
+
+        <!-- <a class="button-6" role="button" href="#section-2">LEARN MORE</a> -->
+    </div>
+
+    <div class="section section-custom section-text-img" id="section-2">
+        <img th:src="@{/image/section-2.jpeg}" alt="">
+        <div class="text-container">
+            <h2><span>Vietnam's most trusted</span><br/>child care resource</h2>
+            <p>The international preschool system YS ChildCare was established in May 2022, pioneering in
+                applying
+                the <span class="highlight">Montessori</span> educational philosophy to teaching, laying the
+                foundation for the development of the
+                Montessori method in Vietnam.</p>
+            <p>Currently, ChildCare safety system has facilities in: <span class="highlight">Hanoi</span>, <span
+                    class="highlight">Ho Chi Minh</span>, <span class="highlight">Quang Ninh,</span> ... with a
+                series of classrooms designed in an open style to make the most of natural light and air. The
+                spacious and comfortable function rooms ensure safety standards and meet the learning and living
+                needs of Students.</p>
+            <!-- <button class="button-9" role="button">GET IN TOUCH</button> -->
+        </div>
+    </div>
+
+    <div class="section section-custom section-small-blocks" id="section-3">
+        <div class="small-block small-block-3">
+            <h2>Our <span>mission</span></h2>
+            <p>YS ChildCare is committed to providing the community with a sustainable educational
+                environment,
+                inspiring creativity.
+                <br/>
+                <br/>
+                Here at YS ChildCare, we feel privileged to share your child's early years and
+                we are committed to making sure that this is the right place for your child and for you. We
+                fully recognise the great trust that you have placed in us when deciding to leave your child here
+                and
+                we will work hard to ensure that we repay that trust.
+            </p>
+        </div>
+        <div class="small-block small-block-3">
+            <h2>Our <span>goals</span></h2>
+            <p>Our carers provide genuine love and concern for the children in their care, thus providing them
+                with
+                a warm, friendly and inviting atmosphere where your child will feel secure and happy in their
+                new
+                environment.
+                <br/>
+                <br/>
+                We want every part of our service to not only meet, but to exceed
+                your needs and those of
+                your child. This requires partnership, so aT YS ChildCare we believe that families and
+                educators
+                must cooperate and work together, sharing information and building relationships and a sense of
+                community and belonging.
+            </p>
+        </div>
+        <div class="small-block small-block-3">
+            <h2>Things <span>to do</span></h2>
+            <p>We will:<br/>
+                <br/>
+                - Create a learning environment which will encourage children to interact, take on roles and
+                develop
+                relationships with others through play<br/>
+                <br/>
+                - Encourage children to be respectful, sensitive and thoughtful towards their natural
+                environment<br/>
+                <br/>
+                - Provide a nutritious and varied menu with the emphasis on organic, natural foods and a nut
+                free
+                environment.
+            </p>
+        </div>
+    </div>
+
+    <div class="section section-custom section-text-img" id="section-4">
+        <div class="text-container">
+            <h2><span>Teaching, nurturing, and building </span>confidence is our specialty</h2>
+            <p>To become a leading institution in the field of education and training throughout from
+                Kindergarten
+                to Pre-University with the goal of combining Eastern values with international education to
+                train
+                global citizens. bridge.</p>
+            <p>
+                Provide high-quality educational programs in an innovative and challenging learning environment.
+                Applying innovative and advanced methods in teaching and learning keeps students interested and
+                passionate about lifelong learning.</p>
+            <!-- <button class="button-9" role="button">GET IN TOUCH</button> -->
+        </div>
+        <img th:src="@{/image/section-4.jpeg}" alt="">
+    </div>
+
+    <div class="section section-custom section-small-blocks" id="feedback">
+        <div class="small-block small-block-2">
+            <h1>"</h1>
+            <p>Mình có một bé 3,5 tuổi đã theo học tại trường ngay từ thời gian đầu mới thành lập. Quan điểm của
+                mình và gia đình là đối với việc giáo dục con trẻ thì môi trường và phương pháp là hai yếu tố
+                rất
+                quan trọng, ảnh hưởng lớn đến trẻ. Cả hai yếu tố này nhà trường đều đáp ứng được rất tốt…</p>
+            <h5><span>Mr. Phạm Thanh Tùng - Ph Bé Nancy
+                    </span></h5>
+        </div>
+        <div class="small-block small-block-2">
+            <h1>"</h1>
+            <p>Điều tôi ấn tượng nhất ở nhà trường chính là các hoạt động ngoại khóa của trường. Mỗi sự kiện của
+                trường được tổ chức quy mô, hướng tới những thông điệp ý nghĩa mà thông qua đó các con được tự
+                do
+                sáng tạo, trau dồi kỹ năng và hình thành những đức tính tốt.
+
+            </p>
+            <h5><span>Mrs. Ngô Thanh Thúy - Phụ huynh bé Bin, lớp Orchid</span></h5>
+        </div>
+    </div>
+    <footer class="section section-custom" id="footer">Copyright © 2022. All Rights Reserved | Designed by:
+        @DucViet |
+    </footer>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.9/fullpage.min.js"
+        integrity="sha512-JSVRnP8UFs0ieN/cvP9v4vmW1CotIaEKKN7W+4JaKNrllZolTv2aJfVGn4BFdfZ1jRZxgTAAaXWdlZbEm9iwFA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    new fullpage('#fullpage', {
+        autoScrolling: true,
+        scrollHorizontally: true,
+        navigation: true,
+        navigationPosition: 'right',
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $("a").on('click', function (event) {
+            if (this.hash !== "") {
+                event.preventDefault();
+                var hash = this.hash;
+                $('html, body').animate({
+                    scrollTop: $(hash).offset().top
+                }, 800, function () {
+                    window.location.hash = hash;
+                });
+            }
+        });
+    });
+</script>
+</body>
+
+</html>

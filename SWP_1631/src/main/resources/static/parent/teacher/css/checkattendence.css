@@ -1,0 +1,62 @@
+:root {
+    --primary-border-color: #757575;
+    --present-color: #36AE7C;
+    --absent-color: #EB5353;
+}
+
+.attendence-section {
+    width: 74%;
+    height: auto;
+    margin: 0 auto;
+    text-align: center;
+    padding-bottom: 70px;
+    padding-top: 30px;
+}
+
+.table-attendance {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto;
+    padding: 10px;
+}
+
+.attendance-box {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    font-size: 30px;
+    text-align: center;
+}
+
+.attendance-box:first-child {
+    border-radius: 20px 0 0 0;
+}
+
+.attendance-box:nth-child(7) {
+    border-radius: 0 20px 0 0;
+}
+
+.attendance-box:nth-child(29) {
+    border-radius: 0 0 0 20px;
+}
+
+.attendance-box:nth-child(35) {
+    border-radius: 0 0 20px 0;
+}
+
+.present {
+    background-color: var(--present-color) !important;
+    color: #fff !important;
+}
+
+.absent {
+    background-color: var(--absent-color) !important;
+    color: #fff !important;
+}
+
+.neutral {
+    background-color: #f0ef21 !important;
+}
+
+.notInclude {
+    background-color: #e0d4d4;
+}

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb http://www.thymeleaf.org">>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!----======== CSS ======== -->
+    <link rel="stylesheet" th:href="@{/admin/schedule/css/style.css}">
+
+    <title></title>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <!--script-->
+    <script src="https://kit.fontawesome.com/28a1dc3e10.js" crossorigin="anonymous"></script>
+    <!--<title>Admin Dashboard Panel</title>-->
+</head>
+
+<body>
+<nav>
+    <div class="logo-name">
+        <div class="logo-image">
+            <img th:src="@{/images/logo.jpg}" alt="">
+        </div>
+
+        <span class="logo_name"><a href="listaccount"
+                                   style="text-decoration: none;color: black">Admin Page</a></span>
+    </div>
+
+    <div class="menu-items">
+        <ul class="nav-links">
+            <li><a href="/admin/">
+                <i class="uil uil-estate"></i>
+                <span class="link-name">Account</span>
+            </a></li>
+
+            <li><a href="/kinderController/">
+                <i class="uil uil-chart"></i>
+                <span class="link-name">Kindergartner</span>
+            </a></li>
+            <li><a href="/admin/clazz">
+                <i class="uil uil-thumbs-up"></i>
+                <span class="link-name">Class</span>
+            </a></li>
+            <li><a href="/admin/scheduleT">
+                <i class="uil uil-comments"></i>
+                <span class="link-name">Schedule</span>
+            </a></li>
+            <li><a href="/home/changePassWo">
+                <i class="uil uil-comments"></i>
+                <span class="link-name">Change Password</span>
+            </a></li>
+        </ul>
+
+        <ul class="logout-mode">
+            <li><a href="/home/logoutSuccessful">
+                <i class="uil uil-signout"></i>
+                <span class="link-name">Logout</span>
+            </a></li>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="dashboard">
+    <form id="f" th:action="@{/admin/scheduleTSearch}" method="post">
+        <div class="select-menu">
+            <!--class-->
+            <div class="class-select">
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="cid"
+                        onchange="chage();"
+                        style="height: 36px;">
+                    <option
+                            th:each="cl:${classes}"
+                            th:text="${cl.className}"
+                            th:value="${cl.clazzId}"
+                            th:selected="${cl.clazzId==cid_raw}">
+                    </option>
+
+                </select>
+            </div>
+
+            <select name="datee" id="ddlViewBy" onchange="chage();">
+                <option
+                        th:each="w:${weeks}"
+                        th:text="${w.value}"
+                        th:value="${w.key}"
+                        th:selected="${w.key==firstMonday}"></option>
+            </select>
+    </form>
+</div>
+
+<div class="dash-bottomtable">
+    <table class="table" style="margin-bottom: 0">
+        <thead style="bgcolor: red">
+        <tr>
+            <th></th>
+            <th scope="col"
+                th:each="map:${scheduleDetails.scheduleMap}"
+                th:text="${#dates.format(map.key, 'EEE') }"></th>
+
+        </tr>
+
+        <tr>
+            <th></th>
+            <th scope="col"
+                th:each="map:${scheduleDetails.scheduleMap}"
+                th:text="${#dates.format(map.key, 'dd/MM') }"></th>
+        </tr>
+        </thead>
+        <div th:each="loopT:${loop}">
+            <tr>
+                <td style="text-align: center;vertical-align: middle;font-weight: bold">
+                    Slot <span th:text="${loopT+1}"></span>
+                </td>
+                <div th:each="map:${scheduleDetails.scheduleMap}">
+                    <!--if slot not null-->
+                    <div th:switch="${map.value[loopT] != null}">
+                        <div th:case="true">
+
+                            <td style="min-height: 1px">
+                                <div style="display: flex">
+                                    <div class="schedule-list" style="width: 80px;" id="${map.key}:${loopT + 1}:old">
+                                        [[${map.value[loopT].activityid.name}]]
+                                    </div>
+                                    <div class="dropdown" style="flex-grow: 1;">
+                                        <button
+                                                class="btn-sm btn-option btn-secondary dropdown-toggle" type="button"
+                                                id="dropdownMenuButton"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item"
+                                               th:href="@{/admin/deleteSchedule?id={id}(id=${map.value[loopT].scheduleId})}">
+                                                <!--                                               onclick="doDelete('${map.value[loopT].scheduleId}')">-->
+                                                <i class="fa-delete fa-solid fa-trash fa-fw fa-align-center"></i> Delete</a>
+                                            <!--                                            <a class="dropdown-item" href="#"-->
+                                            <!--                                               onclick="doUpdate( '${map.key}' , '${map.key}:${loopT + 1}:old')">-->
+                                            <!--                                                <i class="fa fa-edit"></i> Update</a>-->
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </td>
+
+                        </div>
+                        <div th:case="false">
+                            <!--if slot null-->
+                            <td style="text-align: center;vertical-align: middle;" class="empty-cell">
+                                <form th:action="@{/admin/updateSchedule?slotId={slotId}(slotId=${loopT+1})}"
+                                      method="POST">
+                                    <input name="date_picked_converted"
+                                           th:value="${#dates.format(map.key, 'yyyy/MM/dd')}" type="hidden"/>
+                                    <input name="cid_raw" th:value="${cid_raw}" type="hidden"/>
+                                    <input name="slot_chosen" value="${loopT + 1}" type="hidden"/>
+
+                                    <div class="add-button">
+                                        <select name="select_activity" style="width: 90%">
+                                            <option
+                                                    th:each="act:${activity}"
+                                                    th:text="${act.name}"
+                                                    th:value="${act.activityid}"></option>
+                                        </select>
+                                        <button type="submit">
+                                            <i class="fa-solid fa-2x fa-circle-plus fa-fw" style="color: #12ef73"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </td>
+
+                        </div>
+                    </div>
+                </div>
+            </tr>
+        </div>
+
+
+    </table>
+</div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script th:src="@{/admin/schedule/js/schedule.js}"></script>
+</body>
+
+</html>

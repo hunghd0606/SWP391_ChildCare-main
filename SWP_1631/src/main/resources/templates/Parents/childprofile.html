@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" th:href="@{/assets/image/logo2-removebg-preview.png}">
+    <title>YS ChildCare</title>
+    <link rel="stylesheet" th:href="@{/parent/css/parenthome.css}">
+    <link rel="stylesheet" th:href="@{/parent/css/childprofile.css}">
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="home">
+        <div class="left-side-menu">
+            <div class="vertical-menu">
+                <div class="user-welcome">
+                    <img class="user-img" th:src="@{/parent/img/userImg/dummy-user-img.png}"
+                         style="width: 80px; height: 80px;" alt="">
+                    <p th:text="${Kinder.firstName+' '+Kinder.lastName}"></p>
+
+                </div>
+                <div class="menu-item-container">
+                    <ul class="item-lists" th:switch="${session.isKin}">
+                        <li class="menu-item current1" th:case="true">
+                            <a href="/parents/childprofile">Child Information</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="/parents/ParentsProfile">Parent Information</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="/parents/child">Child Register</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="/home/changePassWo">Change Password</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="/parents/viewTimeTable">View Time Table</a>
+                        </li>
+                    </ul>
+                </div>
+                <div style="border-top: 3px solid gray;"></div>
+                <div style="position: absolute;margin-top: 1vh; margin-left: 40px">
+                    <input type="button" class="log-out_button"
+                           onclick="window.location.replace('/home/logoutSuccessful')" value="Log out"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-side">
+            <div class="page-content">
+                <div class="kid-profile">
+                    <div class="kid-profile_header">
+
+                        <div class="img-section">
+                            <img th:src="@{/parent/img/userImg/download.png}" alt="">
+                        </div>
+
+                        <div class="personel-section">
+
+                            <div class="personel-section">
+
+                            </div>
+                            <form id="f1" th:action="@{/parents/childprofile}" method="GET">
+
+                                <select name="mainchildid" id="mainchildid" class="item-list">
+                                    <option
+                                            th:each="Kindergartner:${listKinder}"
+                                            th:text="${Kindergartner.firstName+' '+Kindergartner.lastName}"
+                                            th:value="${Kindergartner.KinderId}"
+                                            th:selected="${Kindergartner.KinderId == mainchildid}"></option>
+
+                                </select>
+                                <input type="submit" value="Change Kid" class="button">
+                            </form>
+
+
+                        </div>
+                    </div>
+
+                    <div class="list-option" id="options">
+                        <div class="attendence option-item">
+                            <a th:href="@{/parents/childdetailAttdence?idKinSearch={idKinSearch}(idKinSearch=${mainchildid})}">Attendance</a>
+                        </div>
+                        <div class="profile option-item current">
+                            <a th:href="@{/parents/childprofile?idKinSearch={idKinSearch}(idKinSearch=${mainchildid})}">Profile</a>
+                        </div>
+                    </div>
+
+
+                    <div class="kid-profile_content">
+                        <div class="class content-item">
+                            <div class="item-title">
+                                <strong>Date of birth</strong>
+
+
+                            </div>
+                            <p th:text="${Kinder.dob}"></p>
+
+                        </div>
+                        <div class="content-item description">
+                            <div class="item-title">
+                                <strong>Gender</strong>
+
+                            </div>
+                            <p th:text="${Kinder.gender}? 'Nam': 'Nu'"></p>
+
+                        </div>
+                        <div class="class content-item">
+                            <div class="item-title">
+                                <strong>Class</strong>
+
+
+                            </div>
+                            <p th:text="${studyRecord.classId.className}"></p>
+
+                        </div>
+                        <div class="content-item phone">
+                            <div class="item-title">
+                                <strong>Parent's phone</strong>
+                            </div>
+                            <p th:text="${Account.phoneNumber}"></p>
+
+
+                        </div>
+                        <div class="content-item address">
+                            <div class="item-title">
+                                <strong>Address</strong>
+                            </div>
+                            <p th:text="${Account.address}"></p>
+
+                        </div>
+                        <div class="content-item description">
+                            <div class="item-title">
+                                <strong>Parent</strong>
+                            </div>
+                            <p th:text="${Account.firstName}+' '+${Account.lastName} "></p>
+
+                        </div>
+                    </div>
+                    <div class="mb-6" STYLE="margin-top: 30px; margin-bottom: 30px;text-align: center">
+                        <a type="submit" class="button" th:href="@{/parents/editChild?id={id}(id=${mainchildid})}">
+                            UPDATE PROFILE
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+<script th:src="@{/admin/schedule/js/schedule.js}"></script>
+</html>

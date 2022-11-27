@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" th:href="@{/assets/image/logo2-removebg-preview.png}">
+    <title>YS ChildCare</title>
+    <link rel="stylesheet" th:href="@{/teacher/css/teacherhome.css}">
+    <link rel="stylesheet" th:href="@{/teacher/css/kidprofile.css}">
+    <script src="https://kit.fontawesome.com/67b5c45612.js" crossorigin="anonymous"></script>
+    <script th:src="@{/teacher/js/teacherhome.js}"></script>
+    <link rel="stylesheet" th:href="@{/teacher/css/checkattendence.css}">
+    <style>
+
+    </style>
+</head>
+
+<body>
+<div class="wrapper">
+    <div class="home">
+        <div class="left-side-menu">
+            <div class="vertical-menu">
+                <div class="user-welcome">
+                    <img class="user-img" th:src="@{/teacher/img/userImg/dummy-user-img.png}"
+                         style="width: 80px; height: 80px;" alt="">
+                    <p>[[${accParent.firstName}]] [[${accParent.lastName}]]</p>
+                </div>
+                <div class="menu-item-container">
+                    <ul class="item-lists">
+                        <li class="menu-item current1">
+                            <a th:href="@{/teacher/homeTeacher}">Home</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a th:href="@{/teacher/}">Teacher Information</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="/home/changePassWo">Change Password</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="log-out">
+                    <a href="/home/logoutSuccessful">Log out</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-side">
+            <div class="page-content">
+                <div class="kid-profile">
+                    <!--          <c:set var="kinder" value="${requestScope.kinder}"/>-->
+                    <div class="kid-profile_header">
+                        <div class="img-section">
+                            <img th:src="@{/teacher/img/userImg/dummy-user-img.png}" alt="">
+                        </div>
+
+                        <div class="personel-section">
+                            <h1>[[${kindergartner.firstName}]] [[${kindergartner.lastName}]]</h1>
+                            <p>[[${kindergartner.dob}]]</p>
+                        </div>
+                    </div>
+                    <div class="list-option" id="options">
+                        <div class="attendence option-item current1">
+                            <a th:href="@{/teacher/viewAttendance?id={id}(id=${kindergartner.KinderId})}"
+                               style="color: #fff;">Attendance</a>
+                        </div>
+                        <div class="feedback option-item ">
+                            <a th:href="@{/teacher/feedbackStudent?id={id}(id=${kindergartner.KinderId})}">Feedback</a>
+                        </div>
+                        <div class="profile option-item ">
+                            <a th:href="@{/teacher/searchKinder?id={id}(id=${kindergartner.KinderId})}">Profile</a>
+                        </div>
+                    </div>
+
+                    <div class="attendence-section">
+                        <div class="table-attendance">
+                            <div th:each=" lDate : ${listDate}">
+                                <div class="attendance-box absent" th:case="true"
+                                     th:switch="${listDate.get(lDate.key) == 0}">
+                                    <p>[[${#dates.format(lDate.key, 'dd') }]]</p>
+                                </div>
+                                <div class="attendance-box present" th:case="false"
+                                     th:switch="${listDate.get(lDate.key) == 0}">
+                                    <p>[[${#dates.format(lDate.key, 'dd') }]]</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="guide">
+                            <i class="fa-solid fa-square" style="color: #EB5353;"><p>Absent</p></i>
+                            <i class="fa-solid fa-square" style="color: #36AE7C;"><p>Present</p></i>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" th:href="@{/assets/image/logo2-removebg-preview.png}">
+    <title>YS ChildCare</title>
+    <link rel="stylesheet" th:href="@{/parent/css/parenthome.css}">
+    <link rel="stylesheet" th:href="@{/parent/css/childprofile.css}">
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="home">
+        <div class="left-side-menu">
+            <div class="vertical-menu">
+                <div class="user-welcome">
+                    <img class="user-img" th:src="@{/parent/img/userImg/dummy-user-img.png}"
+                         style="width: 80px; height: 80px;" alt="">
+                    <p th:text="${Kinder.firstName+' '+Kinder.lastName}"></p>
+
+                </div>
+                <div class="menu-item-container">
+                    <ul class="item-lists" th:switch="${session.isKin}">
+                        <li class="menu-item current1" th:case="true">
+                            <a href="/parents/childprofile">Child Information</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="/parents/ParentsProfile">Parent Information</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="/parents/child">Child Register</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="/home/changePassWo">Change Password</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="/parents/viewTimeTable">View Time Table</a>
+                        </li>
+                    </ul>
+                </div>
+                <div style="border-top: 3px solid gray;"></div>
+                <div style="position: absolute;margin-top: 1vh; margin-left: 40px">
+                    <input type="button" class="log-out_button"
+                           onclick="window.location.replace('/home/logoutSuccessful')" value="Log out"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-side">
+            <div class="page-content">
+                <div class="kid-profile">
+                    <div class="kid-profile_header">
+
+                        <div class="img-section">
+                            <img th:src="@{/parent/img/userImg/download.png}" alt="">
+                        </div>
+
+                        <div class="personel-section">
+
+                            <div class="personel-section">
+
+                            </div>
+                            <form th:action="@{/parents/childdetailAttdence}" method="GET">
+
+                                <select name="mainchildid" id="mainchildid" class="item-list">
+                                    <option
+                                            th:each="Kindergartner:${listKinder}"
+                                            th:text="${Kindergartner.firstName+' '+Kindergartner.lastName}"
+                                            th:value="${Kindergartner.KinderId}"
+                                            th:selected="${Kindergartner.KinderId == mainchildid}"></option>
+
+                                </select>
+                                <input type="submit" value="Change Kid" class="button">
+                            </form>
+
+
+                        </div>
+                    </div>
+
+                    <div class="list-option" id="options">
+                        <div class="attendence option-item current">
+                            <a th:href="@{/parents/childdetailAttdence?idKinSearch={idKinSearch}(idKinSearch=${mainchildid})}">Attendance</a>
+                        </div>
+                        <div class="profile option-item ">
+                            <a th:href="@{/parents/childprofile?idKinSearch={idKinSearch}(idKinSearch=${mainchildid})}">Profile</a>
+                        </div>
+                    </div>
+
+
+                    <div class="attendence-section">
+                        <div class="body-container">
+                            <div class="list-students-ver2">
+                                <div th:each="Attendance:${listAttendance}" style="width: 75%;margin:0 auto ">
+                                    <input type="hidden" name="action" value="check_in"/>
+                                    <div class="student-infor">
+                                        <div class="img-section">
+                                            <img th:src="@{/parent/img/userImg/download.png}" alt="">
+                                        </div>
+                                        <p>Date: <span th:text="${Attendance.checkDate}"></span></p>
+                                        <p style="padding-left: 200px">Attendance status: </p>
+                                        <p th:switch="${Attendance.status}">
+                                            <span style="color:red" th:case="0">Absent</span>
+                                            <span style="color:#ff9933" th:case="1">Checked in</span>
+                                            <span style="color:green" th:case="2">Checked out</span>
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

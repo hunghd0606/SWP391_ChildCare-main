@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!----======== CSS ======== -->
+    <link rel="stylesheet" th:href="@{/admin/kinder/css/style.css}">
+    <link rel="stylesheet" th:href="@{/admin/kinder/boot/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/admin/kinder/boot/bootstrap.css}">
+
+    <link rel="icon" th:href="@{/assets/image/logo2-removebg-preview.png}">
+    <title>YS ChildCare</title>
+    <!----===== Iconscout CSS ===== -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!--<title>Admin Dashboard Panel</title>-->
+</head>
+
+<body>
+<form th:href="@{/kinderController/saveKinder}" action="get">
+
+    <nav>
+        <div class="logo-name">
+            <div class="logo-image">
+                <img th:src="@{/images/logo.jpg}" alt="">
+            </div>
+
+            <span class="logo_name"><a href="listaccount"
+                                       style="text-decoration: none;color: black">Admin Page</a></span>
+        </div>
+
+        <div class="menu-items">
+            <ul class="nav-links">
+                <li><a href="/admin/">
+                    <i class="uil uil-estate"></i>
+                    <span class="link-name">Account</span>
+                </a></li>
+
+                <li><a href="/kinderController/">
+                    <i class="uil uil-chart"></i>
+                    <span class="link-name">Kindergartner</span>
+                </a></li>
+                <li><a href="/admin/clazz">
+                    <i class="uil uil-thumbs-up"></i>
+                    <span class="link-name">Class</span>
+                </a></li>
+                <li><a href="/admin/scheduleT">
+                    <i class="uil uil-comments"></i>
+                    <span class="link-name">Schedule</span>
+                </a></li>
+                <li><a href="/home/changePassWo">
+                    <i class="uil uil-comments"></i>
+                    <span class="link-name">Change Password</span>
+                </a></li>
+            </ul>
+
+            <ul class="logout-mode">
+                <li><a href="/home/logoutSuccessful">
+                    <i class="uil uil-signout"></i>
+                    <span class="link-name">Logout</span>
+                </a></li>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="dashboard">
+
+        <div class="dash-lefttop">
+            <img src="https://i.pinimg.com/originals/72/45/fb/7245fb0ca786bb4a98fb8465e437c5bb.jpg" alt="">
+            <!--            <a href="#">${sessionScope.account.firstName}</a>-->
+        </div>
+        <div class="sl-id" style="display: flex;">
+        </div>
+        <div class="dash-bottomtable">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">KinderID</th>
+                    <th scope="col">ParentName</th>
+                    <th scope="col">FirstName</th>
+                    <th scope="col">LastName</th>
+                    <th scope="col">DOB</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Img</th>
+                    <th scope="col">Update</th>
+                    <th scope="col">Delete</th>
+
+                </tr>
+                </thead>
+                <tr th:each="listK : ${listK}">
+                    <td th:utext="${listK.KinderId}"></td>
+                    <td th:utext="${listK.account.firstName}+' '+${listK.account.lastName}"></td>
+                    <td th:utext="${listK.firstName}"></td>
+                    <td th:utext="${listK.lastName}"></td>
+                    <td th:utext="${listK.dob}"></td>
+                    <td th:switch="${listK.gender}">
+                <span th:case="true"> Male
+                </span>
+                        <span th:case="false">Female
+                </span>
+                    </td>
+                    <td>
+                        <img th:src="${listK.img}" alt="No image" style="height: 96px; width: 96px">
+                    </td>
+                    <td><a th:href="@{/kinderController/edit?id={id}(id=${listK.KinderId})}">Update</a></td>
+                    <td><a th:href="@{/kinderController/delete?id={id}(id=${listK.KinderId})}">Delete</a></td>
+
+                </tr>
+            </table>
+        </div>
+
+
+    </div>
+
+</form>
+<!-- <script src="agu.js"></script> -->
+</body>
+
+</html>

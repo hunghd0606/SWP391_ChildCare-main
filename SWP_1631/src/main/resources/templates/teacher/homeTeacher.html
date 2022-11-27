@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" th:href="@{/assets/image/logo2-removebg-preview.png}">
+    <title>YS ChildCare</title>
+    <link rel="stylesheet" th:href="@{/teacher/css/teacherhome.css}">
+    <script src="https://kit.fontawesome.com/67b5c45612.js" crossorigin="anonymous"></script>
+    <script th:src="@{/teacher/js/teacherhome.js}"></script>
+    <style>
+        .current1 > a {
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+<div class="wrapper">
+    <div class="home">
+        <div class="left-side-menu">
+            <div class="vertical-menu">
+                <div class="user-welcome">
+                    <img class="user-img" th:src="@{/teacher/img/userImg/dummy-user-img.png}"
+                         style="width: 80px; height: 80px;" alt="">
+                    <p>[[${session.acc.firstName}]] [[${session.acc.lastName}]]</p>
+                </div>
+                <div class="menu-item-container">
+                    <ul class="item-lists">
+                        <li class="menu-item current1">
+                            <a th:href="@{/teacher/homeTeacher}">Home</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a th:href="@{/teacher/}">Teacher Information</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="/home/changePassWo">Change Password</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="log-out">
+                    <a href="/home/logoutSuccessful">Log out</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-side">
+            <div class="page-content">
+                <div class="header-container">
+                    <div class="header-intro">
+                        <div class="class-section">
+                            <h1>[[${clazz}]]</h1>
+                        </div>
+                        <div class="search-section">
+                        </div>
+                    </div>
+                    <div class="header-filter">
+                        <div class="date-input">
+                            <form id="MyformT" th:action="@{/teacher/homeTeacher}" method="GET">
+                                <input id="dateinput" type="date" name="checkindate" th:value="${checkindate}"
+                                       onchange="chageT()"/>
+
+                        </div>
+                        <div class="left-modes">
+                            <div class="submit-btn">
+                                <input type="submit" name="Save" value="Check In"/>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="body-container">
+                        <form th:action="@{/teacher/UpdateAttendance?checkindate={checkindate}(checkindate=${checkindate})}"
+                              method="POST">
+                            <div class="list-students-ver2">
+                                <div class="student-infor" th:each=" studyRecord : ${listStudyRecord}"
+                                     th:switch="${present_kids.size() == 0}">
+                                    <p>[[${studyRecord.kinderId.KinderId}]]</p>
+                                    <div class="img-section">
+                                        <img th:src="@{/teacher/img/userImg/download.png}" alt="">
+                                    </div>
+                                    <a th:href="@{/teacher/searchKinder?id={id}(id=${studyRecord.kinderId.KinderId})}">[[${studyRecord.kinderId.firstName}]]
+                                        [[${studyRecord.kinderId.lastName}]]</a>
+                                    <div class="check-attendance" th:case="true">
+                                        <input type="radio" th:name="gen+${studyRecord.kinderId.KinderId}"
+                                               th:disabled="${isPast}"
+                                               th:id="${studyRecord.kinderId.KinderId}+a" value="1"
+                                               th:onclick="saveAttendance([[${studyRecord.kinderId.KinderId}]]:1)"
+                                               placeholder="Attend"> <label th:for="${studyRecord.kinderId.KinderId}+a">Attend</label>
+                                        <input type="radio" th:name="gen+${studyRecord.kinderId.KinderId}"
+                                               th:disabled="${isPast}"
+                                               th:id="${studyRecord.kinderId.KinderId}+b"
+                                               th:onclick="saveAttendance([[${studyRecord.kinderId.KinderId}]]:0)"
+                                               value="0"
+                                               checked placeholder="Absent"> <label
+                                            th:for="${studyRecord.kinderId.KinderId}+b">Absent</label>
+                                    </div>
+
+                                    <div class="check-attendance" th:case="false">
+
+                                        <input type="radio" th:name="gen+${studyRecord.kinderId.KinderId}"
+                                               th:id="${studyRecord.kinderId.KinderId}+a" value="1"
+                                               th:onclick="saveAttendance([[${studyRecord.kinderId.KinderId}]]:1)"
+                                               th:checked="${studentMap.get(studyRecord.kinderId.KinderId)==1}"
+                                               th:disabled="${isPast}"> <label
+                                            th:for="${studyRecord.kinderId.KinderId}+a">Attend</label>
+                                        <input type="radio" th:name="gen+${studyRecord.kinderId.KinderId}"
+                                               th:id="${studyRecord.kinderId.KinderId}+b"
+                                               th:onclick="saveAttendance([[${studyRecord.kinderId.KinderId}]]:0)"
+                                               value="0"
+                                               th:disabled="${isPast}"
+                                               th:checked="${studentMap.get(studyRecord.kinderId.KinderId)==0}"> <label
+                                            th:for="${studyRecord.kinderId.KinderId}+b">Absent</label>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <input type="hidden" name="attendanceStatus" id="attendanceStatus"/>
+                            <div class="submit-btn">
+                                <input type="submit" name="Save" value="Save"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script th:inline="javascript">
+    document.getElementById('dateinput').onchange = function () {
+        document.getElementById("myform").submit();
+    };
+
+    if ([]${requestScope.announcement != null || sessionScope.message != null}) {
+        window.addEventListener("load", function () {
+            setTimeout(
+                function open(event) {
+                    document.querySelector(".overlay").style.visibility = "visible";
+                    document.querySelector(".overlay").style.opacity = "1";
+                },
+                1000
+            );
+        });
+        document.querySelector("#close").addEventListener("click", function () {
+            //     <%
+            //             session.removeAttribute("message");
+            // %>
+            document.querySelector(".popup").style.display = "none";
+            document.querySelector(".overlay").style.visibility = "hidden";
+            document.querySelector(".overlay").style.opacity = "0";
+        });
+    }
+
+    var stumap = new Map();
+    var a1 = '${requestScope.studentMap}'.slice(1, -1).split(", ");
+    for (var i = 0; i < a1.length; i++) {
+        stumap.set(a1[i].substring(0, a1[i].indexOf('=')), a1[i].substring(a1[i].indexOf('=') + 1, a1[i].length));
+    }
+
+    function saveAttendance(index) {
+
+        alert("Alo " + index);
+        console.log(index)
+        var ans = index.split(':');
+        stumap.set(ans[0], ans[1]);
+        var output = "";
+        for (const [key, value] of stumap) {
+            output += key + ":" + value + ",";
+        }
+        console.log(output);
+        document.getElementById("attendanceStatus").value = output;
+    }
+
+    function chageT() {
+        document.getElementById("MyformT").submit();
+    }
+
+</script>
+</html>

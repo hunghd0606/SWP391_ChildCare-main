@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" th:href="@{/assets/image/logo2-removebg-preview.png}">
+    <title>YS ChildCare </title>
+    <link rel="stylesheet" th:href="@{/teacher/css/teacherhome.css}">
+    <link rel="stylesheet" th:href="@{/teacher/css/kidprofile.css}">
+</head>
+
+<body>
+<div class="wrapper">
+    <div class="home">
+        <div class="left-side-menu">
+            <div class="vertical-menu">
+                <div class="user-welcome">
+                    <img class="user-img" th:src="@{/teacher/img/userImg/dummy-user-img.png}"
+                         style="width: 80px; height: 80px;" alt="">
+                    <p>Harry Porter</p>
+                </div>
+                <div class="menu-item-container">
+                    <ul class="item-lists">
+                        <li class="menu-item current1">
+                            <a th:href="@{/teacher/homeTeacher}">Home</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a th:href="@{/teacher/}">Teacher Information</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="/home/changePassWo">Change Password</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="log-out">
+                    <a href="/home/logoutSuccessful">Log out</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-side">
+            <div class="page-content">
+                <div class="kid-profile">
+                    <div class="kid-profile_header">
+                        <!--            <c:set var="kid" value="${requestScope.kid_info}" />-->
+                        <div class="img-section">
+                            <img th:src="@{/teacher/img/userImg/dummy-user-img.png}" alt="">
+                        </div>
+
+                        <div class="personel-section">
+                            <h1>[[${kindergartner.firstName}]] [[${kindergartner.lastName}]]</h1>
+                            <p>[[${kindergartner.dob}]]</p>
+                        </div>
+                    </div>
+
+                    <div class="list-option" id="options">
+                        <div class="attendence option-item">
+                            <a th:href="@{/teacher/viewAttendance?id={id}(id=${kindergartner.KinderId})}">Attendance</a>
+                        </div>
+                        <div class="feedback option-item">
+                            <a th:href="@{/teacher/feedbackStudent?id={id}(id=${kindergartner.KinderId})}">Feedback</a>
+                        </div>
+                        <div class="profile option-item current1">
+                            <a th:href="@{/teacher/searchKinder?id={id}(id=${kindergartner.KinderId})}"
+                               style="color: #fff;">Profile</a>
+                        </div>
+                    </div>
+
+                    <div class="kid-profile_content">
+                        <div class="class content-item">
+                            <div class="item-title">
+                                <strong>Class</strong>
+                            </div>
+                            <p>[[${clazz.className}]]</p>
+                        </div>
+                        <div class="content-item phone">
+                            <div class="item-title">
+                                <strong>Parent's phone</strong>
+                            </div>
+                            <p>[[${accParent.phoneNumber}]]</p>
+                        </div>
+                        <div class="content-item address">
+                            <div class="item-title">
+                                <strong>Address</strong>
+                            </div>
+                            <p>[[${accParent.address}]]</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

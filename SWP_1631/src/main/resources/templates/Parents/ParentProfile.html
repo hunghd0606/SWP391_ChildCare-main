@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" th:href="@{/assets/image/logo2-removebg-preview.png}">
+    <link rel="stylesheet" th:href="@{/parent/css/parenthome.css}">
+    <link rel="stylesheet" th:href="@{/parent/css/childprofile.css}">
+    <link rel="stylesheet" th:href="@{/parent/css/childregister.css}">
+
+    <title>YS ChildCare</title>
+</head>
+
+<body>
+
+<div class="wrapper">
+    <div class="home">
+        <div class="left-side-menu">
+            <div class="vertical-menu">
+                <div class="user-welcome">
+                    <img class="user-img" th:src="@{/parent/img/userImg/dummy-user-img.png}"
+                         style="width: 80px; height: 80px;" alt="">
+                    <p th:text="${Parents.firstName}"></p>
+                </div>
+                <div class="menu-item-container">
+                    <ul class="item-lists" th:switch="${session.isKin}">
+                        <li class="menu-item " th:case="true">
+                            <a href="/parents/childprofile">Child Information</a>
+                        </li>
+                        <li class="menu-item current1">
+                            <a href="/parents/ParentsProfile">Parent Information</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="/parents/child">Child Register</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="/home/changePassWo">Change Password</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="/parents/viewTimeTable">View Time Table</a>
+                        </li>
+                    </ul>
+                </div>
+                <div style="border-top: 3px solid gray;"></div>
+                <div style="position: absolute;margin-top: 1vh; margin-left: 40px">
+                    <input type="button" class="log-out_button"
+                           onclick="window.location.replace('/home/logoutSuccessful')" value="Log out"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-side">
+            <div class="page-content">
+                <div class="kid-profile">
+                    <div class="kid-profile_header">
+
+                        <div class="img-section">
+                            <img th:src="@{/parent/img/userImg/dummy-user-img.png}" alt="">
+                        </div>
+
+                        <div>
+                            <h1></h1>
+                            <p></p>
+                        </div>
+                    </div>
+
+                    <form th:action="@{/Parents/ParentsProfile?id={id}(id=${Parents.accountId})}" method="GET">
+                        <div class="kid-profile_content">
+                            <div class="class content-item wrap-input100 validate-input">
+                                <div class="item-title">
+                                    <strong>First Name</strong>
+                                </div>
+
+                                <label for="exampleFormControlInput1" class="form-label"></label>
+                                <p type="text" class="parent-infor" name="parentfirstname" id="parentfirstname"
+                                   th:text="${Parents.firstName}" pattern="([a-zA-Z',.-]{2,8}[ ]{0,1}){1,3}"
+                                   title="Alphabetical letters only" required="" readonly></p>
+                                <span class="focus-input100"></span>
+                            </div>
+                            <div class="content-item wrap-input100 validate-input">
+                                <div class="item-title">
+                                    <strong>Last name</strong>
+                                </div>
+                                <!--<c:set var="parent" value="}"/>-->
+                                <p type="text" class="parent-infor" id="parentlastname" name="parentlastname"
+                                   pattern="([a-zA-Z',.-]{2,8}[ ]{0,1}){1,3}" title="Alphabetical letters only"
+                                   required=""
+                                   th:text="${Parents.lastName}" readonly></p>
+                                <label for="exampleFormControlInput1" class="form-label"></label>
+                                <span class="focus-input100"></span>
+                            </div>
+                            <div class="content-item address">
+                                <div class="item-title">
+                                    <strong>Date of birth</strong>
+                                </div>
+                                <!--                                <c:set var="parent" value=""/>-->
+                                <p type="date" class="parent-infor" name="parentdob" required=""
+                                   th:text="${Parents.dob}" readonly></p>
+                            </div>
+                            <div class="content-item address">
+                                <div class="item-title">
+                                    <strong>Gender</strong>
+                                </div>
+                                <p class="parent-infor" name="Gender" required="" th:switch="${Parents.gender}">
+                                    <span th:case="true"> Male
+                                     </span>
+                                    <span th:case="false">Female
+                                     </span>
+                                </p>
+
+                            </div>
+                            <div class="content-item wrap-input100 validate-input">
+                                <div class="item-title">
+                                    <strong>Phone</strong>
+                                </div>
+                                <!--                                                                <th:c:set var="parent" th:value="${requestScope.account}"/>-->
+                                <p type="number" class="parent-infor" pattern="^(([+]84)|0)(3|5|7|8|9)([0-9]{8})"
+                                   name="parentphonenumber" id="parentphonenumber"
+                                   title="Must start with 09/03/07/08/05 and contain 10 characters"
+                                   th:text="${Parents.phoneNumber}" readonly></p>
+                                <span class="focus-input100"></span>
+                            </div>
+                            <div class="content-item description">
+                                <div class="item-title">
+                                    <strong>Address</strong>
+
+                                </div>
+                                <!--                                <th:c:set var="parent" value="${requestScope.account}"/>-->
+                                <p type="text" class="parent-infor" name="parentaddress" required=""
+                                   th:text="${Parents.address}" readonly></p>
+                            </div>
+                            <div class="content-item wrap-input100 validate-input ">
+                                <div class="item-title">
+                                    <strong>Email</strong>
+                                </div>
+                                <!--                                <th:c:set var="parent" value="${requestScope.account}"/>-->
+                                <p type="text" class="parent-infor" name="parentemail" id="parentemail"
+                                   title="Must contain @" required th:text="${Parents.email}" readonly></p>
+                                <span class="focus-input100"></span>
+                                <span class="invalid" id="emailinvalid" style="display: none;">Email must contain
+                                            @</span>
+                            </div>
+                            <!--                                <div class="content-item address">
+                                                                <div class="item-title">
+                                                                    <strong>Profile Picture</strong>
+                                                                </div>
+                                                                <p class="parent-infor">${account.img}</p>
+
+                                                            </div>-->
+                            <div class="mb-6" style="margin-top: 30px; margin-bottom: 30px; padding-left: 300px ">
+
+                                <a type="submit" class="button"
+                                   th:href="@{/parents/edit?id={id}(id=${Parents.accountId})}">UPDATE</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+<script>
+    window.onload = function () {
+        var patharr = location.pathname.split("/");
+        var fileName = patharr[3];
+        var options = document.getElementById('options');
+        var links = options.getElementsByTagName("a");
+        // alert(links.length);
+        for (i = 1; i < links.length; i++) {
+            if (links[i].getAttribute("href").indexOf(fileName) > -1) {
+                links[i].parentNode.className = 'current';
+            }
+        }
+    };
+</script>
+
+</html>
+

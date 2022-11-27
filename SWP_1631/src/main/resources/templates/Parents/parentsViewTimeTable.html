@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" th:href="@{/assets/image/logo2-removebg-preview.png}">
+    <title>YS ChildCare</title>
+    <link rel="stylesheet" th:href="@{/parent/teacher/css/teacherhome.css}">
+    <link rel="stylesheet" th:href="@{/parent/teacher/css/kidprofile.css}">
+    <script src="https://kit.fontawesome.com/67b5c45612.js" crossorigin="anonymous"></script>
+    <script th:src="@{/parent/teacher/js/teacherhome.js}"></script>
+    <link rel="stylesheet" th:href="@{/parent/teacher/css/checkattendence.css}">
+    <link rel="stylesheet" th:href="@{/parent/teacher/schedule/css/style.css}">
+    <style>
+
+    </style>
+</head>
+
+<body>
+<div class="wrapper">
+    <div class="home">
+        <div class="left-side-menu">
+            <div class="vertical-menu">
+                <div class="user-welcome">
+                    <img class="user-img" th:src="@{/parent/teacher/img/userImg/dummy-user-img.png}"
+                         style="width: 80px; height: 80px;" alt="">
+                </div>
+                <div class="menu-item-container">
+                    <ul class="item-lists" th:switch="${session.isKin}">
+                        <li class="menu-item " th:case="true">
+                            <a href="/parents/childprofile">Child Information</a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="/parents/ParentsProfile">Parent Information</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="/parents/child">Child Register</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="/home/changePassWo">Change Password</a>
+                        </li>
+                        <li class="menu-item current1">
+                            <a href="/parents/viewTimeTable">View Time Table</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="log-out">
+                    <a href="/home/logoutSuccessful">Log out</a>
+                </div>
+            </div>
+        </div>
+        <div class="right-side">
+            <form id="f" th:action="@{/parents/viewTimeTable}" method="get">
+                <div class="select-menu">
+                    <!--class-->
+                    <div class="class-select">
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="cid"
+                                onchange="chage();"
+                                style="height: 36px;">
+                            <option
+                                    th:each="cl:${listKinder}"
+                                    th:text="${cl.firstName +' ' + cl.lastName}"
+                                    th:value="${cl.KinderId}"
+                                    th:selected="${cl.KinderId == cid_raw}">
+                            </option>
+
+                        </select>
+                    </div>
+
+<!--                    <select name="datee" id="ddlViewBy" onchange="chage();">-->
+<!--                        <option-->
+<!--                                th:each="w:${weeks}"-->
+<!--                                th:text="${w.value}"-->
+<!--                                th:value="${w.key}"-->
+<!--                                th:selected="${w.key==firstMonday}"></option>-->
+<!--                    </select>-->
+            </form>
+        </div>
+            <div class="page-content">
+                <table class="table" style="margin-bottom: 0" border="1">
+                    <thead style="bgcolor: red">
+                    <tr>
+                        <th></th>
+                        <th scope="col"
+                            th:each="map:${scheduleDetails.scheduleMap}"
+                            th:text="${#dates.format(map.key, 'EEE') }"></th>
+
+                    </tr>
+
+                    <tr>
+                        <th></th>
+                        <th scope="col"
+                            th:each="map:${scheduleDetails.scheduleMap}"
+                            th:text="${#dates.format(map.key, 'dd/MM') }"></th>
+                    </tr>
+                    </thead>
+                    <div th:each="loopT:${loop}">
+                        <tr style="text-align: center;background-color: whitesmoke;">
+                            <td style="text-align: center;vertical-align: middle;font-weight: bold">
+                                Slot <span th:text="${loopT+1}"></span>
+                            </td>
+                            <div th:each="map:${scheduleDetails.scheduleMap}">
+                                <!--if slot not null-->
+                                <div th:switch="${map.value[loopT] != null}">
+                                    <div th:case="true">
+
+                                        <td style="min-height: 1px">
+                                            <div style="display: flex">
+                                                <div class="schedule-list" style="width: 200px;"
+                                                     id="${map.key}:${loopT + 1}:old">
+                                                    <p style="color: #0f9d58; text-align: center">[[${map.value[loopT].activityid.name}]]</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </div>
+                                    <div th:case="false">
+                                        <!--if slot null-->
+                                        <td style="text-align: center;vertical-align: middle;"
+                                            class="empty-cell">
+
+<!--                                            <img th:src="@{/image/blank.png}">-->
+                                        </td>
+                                    </div>
+                                </div>
+                            </div>
+                        </tr>
+                    </div>
+
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    function chage(){
+        document.getElementById("f").submit();
+    }
+</script>
+</body>
+</html>

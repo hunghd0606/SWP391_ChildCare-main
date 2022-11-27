@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!----======== CSS ======== -->
+    <link rel="stylesheet" th:href="@{/admin/css/style.css}">
+    <link rel="stylesheet" th:href="@{/admin/boot/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/admin/boot/bootstrap.css}">
+
+    <link rel="icon" th:href="@{/image/logo2-removebg-preview.png}">
+    <title>YS ChildCare</title>
+    <!----===== Iconscout CSS ===== -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!--<title>Admin Dashboard Panel</title>-->
+</head>
+
+<body>
+<form th:action="@{/admin/search}" method="POST">
+    <nav>
+        <div class="logo-name">
+            <div class="logo-image">
+                <img th:src="@{/images/logo.jpg}" alt="">
+            </div>
+
+            <span class="logo_name"><a href="listaccount"
+                                       style="text-decoration: none;color: black">Admin Page</a></span>
+        </div>
+
+        <div class="menu-items">
+            <ul class="nav-links">
+                <li><a href="/admin/">
+                    <i class="uil uil-estate"></i>
+                    <span class="link-name">Account</span>
+                </a></li>
+
+                <li><a href="/kinderController/">
+                    <i class="uil uil-chart"></i>
+                    <span class="link-name">Kindergartner</span>
+                </a></li>
+                <li><a href="/admin/clazz">
+                    <i class="uil uil-thumbs-up"></i>
+                    <span class="link-name">Class</span>
+                </a></li>
+                <li><a href="/admin/scheduleT">
+                    <i class="uil uil-comments"></i>
+                    <span class="link-name">Schedule</span>
+                </a></li>
+                <li><a href="/home/changePassWo">
+                    <i class="uil uil-comments"></i>
+                    <span class="link-name">Change Password</span>
+                </a></li>
+            </ul>
+
+            <ul class="logout-mode">
+                <li><a href="/home/logoutSuccessful">
+                    <i class="uil uil-signout"></i>
+                    <span class="link-name">Logout</span>
+                </a></li>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="dashboard">
+
+        <div class="dash-lefttop">
+            <!--            <img src="https://i.pinimg.com/originals/72/45/fb/7245fb0ca786bb4a98fb8465e437c5bb.jpg" alt="">-->
+            <!--            <a href="#" style="text-decoration: none">${sessionScope.account.firstName}</a>-->
+        </div>
+
+        <div class="dash-bottom">
+
+            <!--            <input class="form-control me-2" type="search" value=" " name="search" placeholder="Search" aria-label="Search">-->
+            <!--            <button class="btn btn-outline-success" type="submit">Search</button>-->
+
+
+        </div>
+        <div class="sl-id" style="display: flex;">
+
+            <div>
+                <button type="submit" style="width: 40%;margin-left: 70px;margin-top: 20px;"><a
+                        th:href="@{/admin/add-admin}" style="text-decoration: none">Add</a></button>
+            </div>
+        </div>
+
+
+        <div class="dash-bottomtable">
+            <!--            <h1 th:text="${session.VaiTro}"></h1>-->
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Dob</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Update</th>
+                    <th scope="col">Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="liseA : ${liseA}">
+                    <td th:utext="${liseA.accountId}"></td>
+                    <td th:utext="${liseA.firstName}"></td>
+                    <td th:utext="${liseA.lastName}"></td>
+                    <td th:utext="${liseA.firstName}+' '+${liseA.lastName} "></td>
+                    <td th:switch="${liseA.gender}">
+                <span th:case="true"> Male
+                </span>
+                        <span th:case="false">Female
+                </span>
+                    </td>
+                    <td th:utext="${liseA.email}"></td>
+                    <td th:utext="${liseA.dob}"></td>
+                    <td th:utext="${liseA.phoneNumber}"></td>
+                    <td th:utext="${liseA.address}"></td>
+                    <td>
+                        <img th:src="${liseA.img}" alt="No image" style="height: 96px; width: 96px">
+                    </td>
+                    <td th:utext="${liseA.role.roleName}"></td>
+                    <td><a th:href="@{/admin/edit?id={id}(id=${liseA.accountId})}">Update</a></td>
+                    <td><a th:href="@{/admin/delete?id={id}(id=${liseA.accountId})}">Delete</a></td>
+
+                </tr>
+                <!--        </c:forEach>-->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>
+</body>
+</html>
